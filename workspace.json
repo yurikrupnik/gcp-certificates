@@ -11,6 +11,7 @@
     "users-api": "apps/users/api",
     "users-client": "apps/users/client",
     "users-client-e2e": "apps/users-client-e2e",
-    "users-nest-api": "apps/users/nest-api"
+    "users-nest-api": "apps/users/nest-api",
+    "vite-docs": "apps/vite/docs"
   }
 }
