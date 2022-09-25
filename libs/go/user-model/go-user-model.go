@@ -39,7 +39,7 @@ func createController[T interface{}](c *fiber.Ctx) error {
 	if err := c.BodyParser(&user); err != nil {
 		return c.Status(http.StatusBadRequest).JSON(err.Error())
 	}
-	fmt.Println(">>>>>>user", user)
+	fmt.Println(">>>>>>>user", user)
 	result, err := go_mongodb.Mg.Db.Collection("users").InsertOne(ctx, user)
 	if err != nil {
 		//return c.Status(http.StatusInternalServerError).JSON(UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})
