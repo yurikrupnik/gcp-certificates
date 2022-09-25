@@ -9,6 +9,9 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <p>
+          Omg
+        </p>
         <a
           class={styles.link}
           href="https://github.com/solidjs/solid"
