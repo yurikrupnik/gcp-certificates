@@ -1,0 +1,49 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/users/api",
+  "targets": {
+    "build": {
+      "executor": "@nx-go/nx-go:build",
+      "options": {
+        "outputPath": "dist/apps/users/api",
+        "main": "apps/users/api/main.go"
+      }
+    },
+    "serve": {
+      "executor": "@nx-go/nx-go:serve",
+      "options": {
+        "main": "apps/users/api/main.go"
+      }
+    },
+    "test": {
+      "executor": "@nx-go/nx-go:test"
+    },
+    "lint": {
+      "executor": "@nx-go/nx-go:lint"
+    },
+    "dockers": {
+      "executor": "@nx-tools/nx-docker:build",
+      "options": {
+        "push": true,
+        "file": "./Dockerfile",
+        "target": "alpine",
+        "build-args": ["DIST_PATH=dist/apps/users/api"],
+        "metadata": {
+          "images": [
+            "yurikrupnik/users-api",
+            "europe-west1-docker.pkg.dev/maya-mussia/nx-go-playground/users-api"
+          ]
+        }
+      }
+    },
+    "docker": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "docker buildx build --target alpine --platform linux/amd64 --build-arg DIST_PATH=dist/apps/users/api . -t yurikrupnik/users-api:$TAG -t europe-west1-docker.pkg.dev/maya-mussia/nx-go-playground/users-api:$TAG --push"
+      }
+    }
+  },
+  "tags": []
+}
