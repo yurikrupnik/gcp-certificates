@@ -12,14 +12,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type ApiMethods struct {
-	create  func()
-	getById func()
-	getList func()
-	remove  func()
-	update  func()
-}
-
 type User struct {
 	ID    string `json:"id,omitempty" bson:"_id,omitempty"`
 	Email string `json:"email,omitempty" bson:"email,omitempty"`
