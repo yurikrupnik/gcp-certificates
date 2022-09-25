@@ -1,8 +1,3 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-#SetNodeAndPnpm: &set-node
-
 name: Node.js CI
 
 on:
@@ -13,45 +8,6 @@ on:
 env:
   DOCKER_BUILDKIT: 1
 jobs:
-  build1:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v2
-      - uses: actions/setup-go@v3
-        with:
-          go-version: '1.19'
-      - name: Setup Bun Runtime
-        uses: antongolub/action-setup-bun@v1 # or @v1.x.x
-        with:
-          # Optional, if empty the latest bun version will be used
-          # Examples: 0.0.77, 0.1.2, >=0.1, *
-#          bun-version: 0.1.2
-
-          # Optional, default is 'Jarred-Sumner/bun-releases-for-updater'
-          # Example: oven-sh/misc-test-builds
-#          bun-repo: 'Jarred-Sumner/bun-releases-for-updater'
-
-          # Override bunfig.toml inners
-          # Optional. JSON-formatted string as input
-          # See: https://github.com/oven-sh/bun#bunfigtoml
-#          bun-config: '{"install: {"production": false}}'
-
-          # Attach $BUN_INSTALL/install/cache to action/cache
-          # Optional, defaults to false
-          cache: true
-
-          # actions/tool-cache provides a cache for the current job only
-          # Use actions/cache to store the bun binary for the whole workflow
-          # Optional, defaults to false
-          cache-bin: true
-
-
-      - run: bun i
-      - run: bun nx affected --target=build --parallel --max-parallel=2 --prod
   build:
     runs-on: ubuntu-latest
     steps:
@@ -139,8 +95,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-#      - name: Login to DockerHub Registry
-#        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       - run: |-
           gcloud --quiet auth configure-docker europe-west1-docker.pkg.dev
       - run: docker run --privileged --rm tonistiigi/binfmt --install all
@@ -149,24 +103,12 @@ jobs:
         id: metadata
         with:
           images: ghcr.io/${{ github.repository }}
-#      - name: Kaniko build
-#        uses: aevea/action-kaniko@master
-#        with:
-#          image: yurikrupnik/users-api
-#          username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-#          cache: true
-#          cache_registry: aevea/cache
-#          target: go-builder
-#          build-args: DIST_PATH=dist/apps/users/api
-#          push: true
-#          file: Dockerfile
       - name: Set outputs
         id: vars
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.sha_short }}
-      - run: pnpm nx affected --target=build --parallel --max-parallel=4 --prod
+      - run: bun nx affected --target=build --parallel --max-parallel=4 --prod
       # - name: Build docker images
       #   run: pnpm nx affected --target=docker --parallel --max-parallel=1
       #   env:
@@ -174,21 +116,8 @@ jobs:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #     NX_VERBOSE_LOGGING: true
       - name: Build docker images 2
-        run: pnpm nx affected --target=docker --parallel --max-parallel=1
+        run: bun nx affected --target=docker --parallel --max-parallel=1
         env:
           TAG: ${{ steps.vars.outputs.sha_short }}
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NX_VERBOSE_LOGGING: true
-  datree:
-    runs-on: ubuntu-latest
-    env:
-      DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }}
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-#      - name: Run Datree Policy Check
-#        uses: datreeio/action-datree@main
-#        with:
-#          path: '**/*.yaml'
-#          cliArguments: '--only-k8s-files'
