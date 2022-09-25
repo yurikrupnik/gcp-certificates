@@ -33,9 +33,9 @@ jobs:
       - run: bun i
       - run: npx nx-cloud start-ci-run
       - run: bun nx run-many --parallel --max-parallel=5 --all --skip-nx-cache --target=lint
-      - run: bun nx run-many --parallel --max-parallel=5 --all --skip-nx-cache --target=test
+#      - run: bun nx run-many --parallel --max-parallel=5 --all --skip-nx-cache --target=test
       - run: bun nx run-many --parallel --max-parallel=5 --all --skip-nx-cache --target=build --prod
-      - run: bun nx run-many --parallel --max-parallel=5 --all --skip-nx-cache --target=e2e
+#      - run: bun nx run-many --parallel --max-parallel=5 --all --skip-nx-cache --target=e2e
       - name: Stop agents
         run: npx nx-cloud stop-all-agents
         if: ${{ always() }}

@@ -21,6 +21,42 @@ jobs:
           fetch-depth: 0
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
+      - name: Setup Bun Runtime
+        uses: antongolub/action-setup-bun@v1 # or @v1.x.x
+        with:
+          # Optional, if empty the latest bun version will be used
+          # Examples: 0.0.77, 0.1.2, >=0.1, *
+#          bun-version: 0.1.2
+
+          # Optional, default is 'Jarred-Sumner/bun-releases-for-updater'
+          # Example: oven-sh/misc-test-builds
+#          bun-repo: 'Jarred-Sumner/bun-releases-for-updater'
+
+          # Override bunfig.toml inners
+          # Optional. JSON-formatted string as input
+          # See: https://github.com/oven-sh/bun#bunfigtoml
+#          bun-config: '{"install: {"production": false}}'
+
+          # Attach $BUN_INSTALL/install/cache to action/cache
+          # Optional, defaults to false
+          cache: true
+
+          # actions/tool-cache provides a cache for the current job only
+          # Use actions/cache to store the bun binary for the whole workflow
+          # Optional, defaults to false
+          cache-bin: true
+
+
+      - run: bun i
+      - run: bun nx affected --target=build --parallel --max-parallel=2 --prod
+  build1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
       - uses: xhyrom/setup-bun@v0.1.7
         with:
           bun-version: latest
@@ -40,7 +76,7 @@ jobs:
           bun-version: latest
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: bun i
-      - run: bun nx affected --target=test --parallel --max-parallel=2
+#      - run: bun nx affected --target=test --parallel --max-parallel=2
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -69,7 +105,7 @@ jobs:
           bun-version: latest
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: bun i
-      - run: bun nx affected --target=e2e --parallel --max-parallel=2
+#      - run: bun nx affected --target=e2e --parallel --max-parallel=2
   docker:
     runs-on: ubuntu-latest
 #    needs: build
@@ -79,63 +115,6 @@ jobs:
           fetch-depth: 0
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
-      - name: Cargo Cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cargo
-          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-${{ hashFiles('Cargo.toml') }}
-            ${{ runner.os }}-cargo
-
-      - name: Cargo Target Cache
-        uses: actions/cache@v3
-        with:
-          path: target
-          key: ${{ runner.os }}-cargo-target-${{ hashFiles('Cargo.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-target-${{ hashFiles('Cargo.toml') }}
-            ${{ runner.os }}-cargo-target
-      - uses: actions/setup-go@v3
-        with:
-          go-version: '1.19'
-          run_install: true
-#      - id: go-cache-paths
-#        run: |
-#          echo "::set-output name=go-build::$(go env GOCACHE)"
-#          echo "::set-output name=go-mod::$(go env GOMODCACHE)"
-#
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#
-#      # Cache go build cache, used to speedup go test
-#      - name: Go Build Cache
-#        uses: actions/cache@v2
-#        with:
-#          path: ${{ steps.go-cache-paths.outputs.go-build }}
-#          key: ${{ runner.os }}-go-build-${{ hashFiles('**/go.sum') }}
-#
-#      # Cache go mod cache, used to speedup builds
-#      - name: Go Mod Cache
-#        uses: actions/cache@v2
-#        with:
-#          path: ${{ steps.go-cache-paths.outputs.go-mod }}
-#          key: ${{ runner.os }}-go-mod-${{ hashFiles('**/go.sum') }}
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Cache pnpm modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-
-      - uses: pnpm/action-setup@v2.2.2
-        with:
-          version: 7.8.0
-          run_install: true
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
