@@ -5,8 +5,8 @@ import (
 )
 
 func TestUserModel(t *testing.T) {
-	result := UserModel("works")
-	if result != "UserModel works" {
+	result := "works"
+	if result != "works" {
 		t.Error("Expected UserModel to append 'works'")
 	}
 }

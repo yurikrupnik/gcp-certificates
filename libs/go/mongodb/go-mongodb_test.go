@@ -7,6 +7,6 @@ import (
 func TestMongodb(t *testing.T) {
 	result := "Mongodb works"
 	if result != "Mongodb works" {
-		t.Error("Expected Mongodb to append 'works'")
+		t.Error("Expected Mongodb to append 'worksss'")
 	}
 }
