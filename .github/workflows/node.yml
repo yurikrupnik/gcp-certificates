@@ -49,10 +49,10 @@ jobs:
           fetch-depth: 0
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
-      - uses: actions/setup-go@v3
-        with:
-          go-version: '1.19'
-          run_install: true
+#      - uses: actions/setup-go@v3
+#        with:
+#          go-version: '1.19'
+#          run_install: true
       - uses: xhyrom/setup-bun@v0.1.7
         with:
           bun-version: latest

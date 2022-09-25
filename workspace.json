@@ -2,6 +2,10 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "go-fiber-helpers": "libs/go/fiber-helpers",
+    "go-mongodb": "libs/go/mongodb",
+    "go-user-model": "libs/go/user-model",
+    "go-utils": "libs/go/utils",
     "users-api": "apps/users/api",
     "users-client": "apps/users/client",
     "users-client-e2e": "apps/users-client-e2e",
