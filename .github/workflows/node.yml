@@ -84,6 +84,7 @@ jobs:
         with:
           bun-version: latest
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: bun i
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -117,7 +118,7 @@ jobs:
         run: echo ${{ steps.vars.outputs.sha_short }}
       - run: bun nx affected --target=build --parallel --max-parallel=2 --prod
       - name: Build docker images
-        run: pnpm nx affected --target=docker --parallel --max-parallel=1
+        run: bun nx affected --target=docker --parallel --max-parallel=1
         env:
           TAG: ${{ steps.vars.outputs.sha_short }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
