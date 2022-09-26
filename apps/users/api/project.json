@@ -37,11 +37,23 @@
         }
       }
     },
-    "docker": {
+    "dockerd": {
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
         "command": "docker buildx build --target alpine --platform linux/amd64,linux/arm64 --build-arg DIST_PATH=dist/apps/users/api . -t yurikrupnik/users-api:$TAG -t europe-west1-docker.pkg.dev/gcp-certificates-363618/images/users-api:$TAG --push"
+      }
+    },
+    "docker": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "parallel": false,
+        "commands": [
+          "docker build --target alpine --build-arg DIST_PATH=dist/apps/users/api . -t yurikrupnik/users-api:$TAG -t europe-west1-docker.pkg.dev/gcp-certificates-363618/images/users-api:$TAG",
+          "docker push europe-west1-docker.pkg.dev/gcp-certificates-363618/images/users-api:$TAG"
+        ],
+        "cwd": "apps/controller1"
       }
     }
   },
