@@ -121,7 +121,7 @@ jobs:
           GOOS: linux
           GOARCH: amd64
       - name: Build docker images
-        run: bun nx affected --target=docker --parallel --max-parallel=1
+        run: bun nx affected --target=dockers --parallel --max-parallel=1
         env:
           TAG: ${{ steps.vars.outputs.sha_short }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
