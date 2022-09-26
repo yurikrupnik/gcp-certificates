@@ -54,6 +54,28 @@
         "jestConfig": "apps/users/nest-api/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "dockers": {
+      "executor": "@nx-tools/nx-docker:build",
+      "options": {
+        "push": true,
+        "file": "./Dockerfile",
+        "target": "node",
+        "build-args": ["DIST_PATH=dist/apps/users/api"],
+        "metadata": {
+          "images": [
+            "yurikrupnik/nest-api",
+            "europe-west1-docker.pkg.dev/gcp-certificates-363618/images/nest-api"
+          ]
+        }
+      }
+    },
+    "docker": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "docker buildx build --target node --build-arg DIST_PATH=dist/apps/users/nest-api . -t yurikrupnik/nest-api:$TAG -t europe-west1-docker.pkg.dev/gcp-certificates-363618/images/nest-api:$TAG --push"
+      }
     }
   },
   "tags": []
