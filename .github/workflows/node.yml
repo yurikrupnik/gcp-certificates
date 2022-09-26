@@ -128,5 +128,5 @@ jobs:
           DOCKER_DEFAULT_PLATFORM: linux/amd64
           TAG: ${{ steps.vars.outputs.sha_short }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo ${{ steps.meta.outputs.labels }} ${{ steps.meta.outputs.tags }}
+      - run: echo ${{ steps.metadata.outputs.labels }} ${{ steps.metadata.outputs.tags }}
 
