@@ -87,11 +87,20 @@ jobs:
       - run: bun i
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#        id: buildx
-#      - name: Docker Buildx builders
-#        run: docker buildx ls
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        id: buildx
+      - name: Docker Buildx builders
+        run: docker buildx ls
+      - run: docker run --privileged --rm tonistiigi/binfmt --install all
+      - run: docker buildx create --use
+      - uses: docker/metadata-action@v4
+        id: metadata
+        with:
+          images: ghcr.io/${{ github.repository }}
+      - name: Set outputs
+        id: vars
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
@@ -105,15 +114,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - run: |-
           gcloud --quiet auth configure-docker europe-west1-docker.pkg.dev
-#      - run: docker run --privileged --rm tonistiigi/binfmt --install all
-#      - run: docker buildx create --use
-      - uses: docker/metadata-action@v4
-        id: metadata
-        with:
-          images: ghcr.io/${{ github.repository }}
-      - name: Set outputs
-        id: vars
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.sha_short }}
       - run: bun nx affected --target=build --parallel --max-parallel=2 --prod
