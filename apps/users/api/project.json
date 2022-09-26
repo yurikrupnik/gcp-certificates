@@ -52,8 +52,7 @@
         "commands": [
           "docker build --target alpine --build-arg DIST_PATH=dist/apps/users/api . -t yurikrupnik/users-api:$TAG -t europe-west1-docker.pkg.dev/gcp-certificates-363618/images/users-api:$TAG",
           "docker push europe-west1-docker.pkg.dev/gcp-certificates-363618/images/users-api:$TAG"
-        ],
-        "cwd": "apps/users/api"
+        ]
       }
     }
   },
