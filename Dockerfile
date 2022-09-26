@@ -7,7 +7,7 @@ ARG DIST_PATH
 ENV NODE_ENV=$NODE_ENV
 COPY ./$DIST_PATH .
 RUN npm install
-ENV PORT=3333
+ENV PORT=8080
 EXPOSE ${PORT}
 CMD ["node", "main.js"]
 
@@ -19,7 +19,7 @@ ARG DIST_PATH
 ENV NODE_ENV=$NODE_ENV
 COPY ./$DIST_PATH .
 RUN npm install
-ENV PORT=3333
+ENV PORT=8080
 EXPOSE ${PORT}
 CMD ["bun", "main.js"]
 
@@ -58,3 +58,12 @@ EXPOSE ${PORT}
 COPY $DIST_PATH ./app
 EXPOSE ${PORT}
 ENTRYPOINT ["/app"]
+
+# fails on m1
+FROM jarredsumner/bun:edge AS root
+#WORKDIR /
+COPY package.json .
+COPY bun.lockb .
+RUN bun i
+#COPY . .
+

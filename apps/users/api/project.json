@@ -22,8 +22,14 @@
     "lint": {
       "executor": "@nx-go/nx-go:lint"
     },
-    "dockers": {
+    "docker-local": {
       "executor": "@nx-tools/nx-docker:build",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ],
       "options": {
         "push": true,
         "file": "./Dockerfile",
@@ -32,7 +38,7 @@
         "metadata": {
           "images": [
             "yurikrupnik/users-api",
-            "europe-west1-docker.pkg.dev/maya-mussia/nx-go-playground/users-api"
+            "europe-west1-docker.pkg.dev/gcp-certificates-363618/images/users-api"
           ]
         }
       }
@@ -41,7 +47,18 @@
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
-        "command": "docker buildx build --target alpine --platform linux/amd64 --build-arg DIST_PATH=dist/apps/users/api . -t yurikrupnik/users-api:$TAG -t europe-west1-docker.pkg.dev/maya-mussia/nx-go-playground/users-api:$TAG --push"
+        "command": "docker buildx build --target alpine --build-arg DIST_PATH=dist/apps/users/api . -t yurikrupnik/users-api:$TAG -t europe-west1-docker.pkg.dev/gcp-certificates-363618/images/users-api:$TAG --push"
+      }
+    },
+    "docker-regular": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "parallel": false,
+        "commands": [
+          "docker build --target alpine --build-arg DIST_PATH=dist/apps/users/api . -t yurikrupnik/users-api:$TAG -t europe-west1-docker.pkg.dev/gcp-certificates-363618/images/users-api:$TAG",
+          "docker push europe-west1-docker.pkg.dev/gcp-certificates-363618/images/users-api:$TAG"
+        ]
       }
     }
   },

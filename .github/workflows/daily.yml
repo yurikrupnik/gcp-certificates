@@ -1,13 +1,13 @@
 name: Daily Ci
 # Controls when the workflow will run
-on: push
-#on:
-#  # Triggers the workflow on push or pull request events but only for the master branch
-#  schedule:
-#    - cron: 0 8 * * *
-#
-#  # Allows you to run this workflow manually from the Actions tab
-#  workflow_dispatch:
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  schedule:
+    - cron: 0 8 * * *
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
 
 env:
   NX_CLOUD_DISTRIBUTED_EXECUTION: true
@@ -24,6 +24,9 @@ jobs:
         name: Checkout [main]
         with:
           fetch-depth: 0
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.19'
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v3
       - uses: xhyrom/setup-bun@v0.1.7
@@ -33,9 +36,9 @@ jobs:
       - run: bun i
       - run: npx nx-cloud start-ci-run
       - run: bun nx run-many --parallel --max-parallel=5 --all --skip-nx-cache --target=lint
-      - run: bun nx run-many --parallel --max-parallel=5 --all --skip-nx-cache --target=test
+#      - run: bun nx run-many --parallel --max-parallel=5 --all --skip-nx-cache --target=test
       - run: bun nx run-many --parallel --max-parallel=5 --all --skip-nx-cache --target=build --prod
-      - run: bun nx run-many --parallel --max-parallel=5 --all --skip-nx-cache --target=e2e
+#      - run: bun nx run-many --parallel --max-parallel=5 --all --skip-nx-cache --target=e2e
       - name: Stop agents
         run: npx nx-cloud stop-all-agents
         if: ${{ always() }}

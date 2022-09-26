@@ -30,5 +30,15 @@
   "cli": {
     "defaultCollection": "@nxext/vite"
   },
-  "defaultProject": "users-nest-api"
+  "defaultProject": "users-nest-api",
+  "generators": {
+    "@nxext/vite": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    }
+  }
 }
