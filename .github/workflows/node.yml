@@ -105,8 +105,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - run: |-
           gcloud --quiet auth configure-docker europe-west1-docker.pkg.dev
-      - run: docker run --privileged --rm tonistiigi/binfmt --install all
-      - run: docker buildx create --use
+#      - run: docker run --privileged --rm tonistiigi/binfmt --install all
+#      - run: docker buildx create --use
       - uses: docker/metadata-action@v4
         id: metadata
         with:
