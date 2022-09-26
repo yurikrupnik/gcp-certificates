@@ -123,6 +123,8 @@ jobs:
       - name: Build docker images
         run: bun nx affected --target=docker --parallel --max-parallel=1
         env:
+          GOOS: linux
+          GOARCH: amd64
           TAG: ${{ steps.vars.outputs.sha_short }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NX_VERBOSE_LOGGING: true
