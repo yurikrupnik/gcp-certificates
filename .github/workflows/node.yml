@@ -117,6 +117,9 @@ jobs:
       - name: Check outputs
         run: echo ${{ steps.vars.outputs.sha_short }}
       - run: bun nx affected --target=build --parallel --max-parallel=2 --prod
+        env:
+          GOOS: linux
+          GOARCH: amd64
       - name: Build docker images
         run: bun nx affected --target=docker --parallel --max-parallel=1
         env:
