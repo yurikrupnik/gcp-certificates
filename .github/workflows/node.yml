@@ -85,8 +85,8 @@ jobs:
           bun-version: latest
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: bun i
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+#      - name: Set up QEMU
+#        uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
         id: buildx
