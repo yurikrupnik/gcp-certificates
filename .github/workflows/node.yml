@@ -85,6 +85,7 @@ jobs:
           bun-version: latest
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: bun i
+        #        Fails with go imaes
 #      - name: Set up QEMU
 #        uses: docker/setup-qemu-action@v2
 #      - name: Set up Docker Buildx
