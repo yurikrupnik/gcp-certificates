@@ -1,0 +1,61 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../../../k8s/base/deployment
+
+# patch wins over image
+#patches:
+#  - pach.yaml
+patchesStrategicMerge:
+  - pach.yaml
+images:
+  - name: nginx
+    newName: yurikrupnik/users-api
+#commonLabels:
+#  stage: dev
+#  run: users-api
+#commonAnnotations:
+#  support: aris
+namePrefix: users-api-
+#namespace: api-dev
+
+# todo tests patches vs patchesJson6902
+#patchesJson6902:
+#  - target:
+#      version: v1
+#      kind: Service
+#      name: svc
+#    path: patch.json
+#patchesJson6902:
+#  - target:
+#      kind: Deployment
+#      name: nginx
+#      version: v1
+#    path: patch.json
+#configMapGenerator:
+#  - name: spaceman
+#    behavior: create
+#    files:
+#      - config-files/health.conf
+#patches:
+#  - target:
+#      name: nginx
+#      labelSelector: nginx
+#      tar
+#secretGenerator:
+#  - name: mongodb
+#    commands:
+#      password: "gcloud secrets versions access latest --secret=MONGO_URI --project=maya-mussia"
+
+#patches:
+#  - target:
+#      name: aris
+#      namespace: sda
+#    newTag: 3.6
+#commonLabels:
+#  demo: profile-api-label
+#  service: users
+#labels:
+#  - includeSelectors: true
+#    fields:
+#      - path:

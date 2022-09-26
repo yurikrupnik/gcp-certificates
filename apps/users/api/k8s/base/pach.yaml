@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  selector:
+    matchLabels:
+      app: aros
+  template:
+    spec:
+      containers:
+        - name: main
+          image: aris
+          resources:
+            limits:
+              memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc
+spec:
+#  type: NodePort
+  ports:
+    - name: http
+      port: 8000
+  selector:
+    app: aris
+
+

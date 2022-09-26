@@ -10,6 +10,7 @@
   "private": true,
   "dependencies": {
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "reflect-metadata": "^0.1.13",
@@ -35,6 +36,7 @@
     "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
+    "@wanews/nx-pulumi": "^0.26.0",
     "@wanews/nx-vite": "^0.11.0",
     "cypress": "^10.7.0",
     "eslint": "~8.15.0",
