@@ -22,8 +22,14 @@
     "lint": {
       "executor": "@nx-go/nx-go:lint"
     },
-    "dockers": {
+    "docker-local": {
       "executor": "@nx-tools/nx-docker:build",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ],
       "options": {
         "push": true,
         "file": "./Dockerfile",
@@ -37,14 +43,14 @@
         }
       }
     },
-    "dockerd": {
+    "docker": {
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
-        "command": "docker buildx build --target alpine --platform linux/amd64,linux/arm64 --build-arg DIST_PATH=dist/apps/users/api . -t yurikrupnik/users-api:$TAG -t europe-west1-docker.pkg.dev/gcp-certificates-363618/images/users-api:$TAG --push"
+        "command": "docker buildx build --target alpine --build-arg DIST_PATH=dist/apps/users/api . -t yurikrupnik/users-api:$TAG -t europe-west1-docker.pkg.dev/gcp-certificates-363618/images/users-api:$TAG --push"
       }
     },
-    "docker": {
+    "docker-regular": {
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
