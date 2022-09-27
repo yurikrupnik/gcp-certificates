@@ -3,7 +3,7 @@
 FROM node:18-alpine AS node
 WORKDIR /app
 ARG DIST_PATH
-# RUN test -n "$DIST_PATH" || (echo "DIST_PATH  not set" && false)
+# RUN test -n "$DIST_PATH" || (echo "DIST_PATH not set" && false)
 ENV NODE_ENV=$NODE_ENV
 COPY ./$DIST_PATH .
 RUN npm install
@@ -15,7 +15,7 @@ CMD ["node", "main.js"]
 FROM node:18-alpine AS bun
 WORKDIR /app
 ARG DIST_PATH
-# RUN test -n "$DIST_PATH" || (echo "DIST_PATH  not set" && false)
+# RUN test -n "$DIST_PATH" || (echo "DIST_PATH not set" && false)
 ENV NODE_ENV=$NODE_ENV
 COPY ./$DIST_PATH .
 RUN npm install
@@ -28,7 +28,7 @@ FROM nginx:alpine AS nginx
 #FROM haproxy:alpine AS web-builder
 WORKDIR /app
 ARG DIST_PATH
-RUN test -n "$DIST_PATH" || (echo "DIST_PATH  not set" && false)
+RUN test -n "$DIST_PATH" || (echo "DIST_PATH not set" && false)
 COPY ./$DIST_PATH /usr/share/nginx/html
 #COPY ./apps/users/client/k8s/base/haproxy.cfg /etc/haproxy/haproxy.cfg
 ENV PORT=80
@@ -40,7 +40,7 @@ CMD ["nginx", "-g", "daemon off;"]
 FROM scratch AS scratch
 WORKDIR /
 ARG DIST_PATH
-#RUN test -n "$DIST_PATH" || (echo "DIST_PATH  not set" && false)
+#RUN test -n "$DIST_PATH" || (echo "DIST_PATH not set" && false)
 ARG ENTRY_NAME=app
 ENV PORT=8080
 EXPOSE ${PORT}
@@ -51,7 +51,7 @@ ENTRYPOINT ["/app"]
 FROM alpine AS alpine
 WORKDIR /
 ARG DIST_PATH
-#RUN test -n "$DIST_PATH" || (echo "DIST_PATH  not set" && false)
+RUN test -n "$DIST_PATH" || (echo "DIST_PATH not set" && false)
 ARG ENTRY_NAME=app
 ENV PORT=8080
 EXPOSE ${PORT}
