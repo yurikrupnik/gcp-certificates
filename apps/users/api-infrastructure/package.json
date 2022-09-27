@@ -1,0 +1,10 @@
+{
+  "name": "users-api-infrastructure",
+  "private": true,
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@pulumi/gcp": "^6.38.0",
+    "@pulumi/pulumi": "^3.40.1"
+  }
+}

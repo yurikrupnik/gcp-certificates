@@ -1,0 +1,39 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "infra/core/src",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["infra/core/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx vitest --run",
+        "cwd": "libs/infra/core"
+      }
+    },
+    "up": {
+      "executor": "@wanews/nx-pulumi:up",
+      "options": {
+        "buildTargets": []
+      }
+    },
+    "refresh": {
+      "executor": "@wanews/nx-pulumi:refresh",
+      "options": {
+        "buildTargets": []
+      }
+    },
+    "destroy": {
+      "executor": "@wanews/nx-pulumi:destroy",
+      "options": {
+        "buildTargets": []
+      }
+    }
+  },
+  "tags": []
+}

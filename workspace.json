@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "core": "infra/core",
     "docs": "apps/docs",
     "docs-e2e": "apps/docs-e2e",
     "go-fiber-helpers": "libs/go/fiber-helpers",
@@ -9,6 +10,7 @@
     "go-user-model": "libs/go/user-model",
     "go-utils": "libs/go/utils",
     "users-api": "apps/users/api",
+    "users-api-infrastructure": "apps/users/api-infrastructure",
     "users-client": "apps/users/client",
     "users-client-e2e": "apps/users-client-e2e",
     "users-nest-api": "apps/users/nest-api",
