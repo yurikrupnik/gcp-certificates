@@ -125,6 +125,7 @@ jobs:
           GOOS: linux
           GOARCH: amd64
           CGO_ENABLED: 0
+      - run: ls dist/apps/users
       - name: Build docker images
         run: bun nx affected --target=docker --parallel --max-parallel=1
         env:
