@@ -111,13 +111,8 @@ jobs:
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
-#          token_format: 'id_token' # <--
-#          token_format: 'access_token' # <--
-#          id_token_include_email: true # optional
-#          credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
           workload_identity_provider: 'projects/50185966089/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
           service_account: 'docker-builder@gcp-certificates-363618.iam.gserviceaccount.com'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
