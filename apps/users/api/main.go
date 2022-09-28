@@ -47,7 +47,7 @@ func main() {
 		return ctx.SendString("ds")
 	})
 	apiGroup1.Get("/friends", func(ctx *fiber.Ctx) error {
-		return ctx.SendString("friends")
+		return ctx.SendString("dsa")
 	})
 	apiGroup1.Get("/sap", func(ctx *fiber.Ctx) error {
 		return ctx.SendString("Yes")
