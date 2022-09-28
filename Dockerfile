@@ -57,7 +57,7 @@ ENV PORT=8080
 EXPOSE ${PORT}
 COPY $DIST_PATH ./app
 EXPOSE ${PORT}
-#ENTRYPOINT ["/app"]
+ENTRYPOINT ["/app"]
 
 # fails on m1
 FROM jarredsumner/bun:edge AS root
