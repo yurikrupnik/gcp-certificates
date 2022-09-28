@@ -44,7 +44,7 @@ func main() {
 	apiGroup := app.Group("api")
 	apiGroup1 := app.Group("v1")
 	apiGroup1.Get("/aris", func(ctx *fiber.Ctx) error {
-		return ctx.SendString("arisss")
+		return ctx.SendString("ds")
 	})
 	apiGroup1.Get("/friends", func(ctx *fiber.Ctx) error {
 		return ctx.SendString("friends")
