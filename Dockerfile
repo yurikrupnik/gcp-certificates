@@ -15,7 +15,7 @@ CMD ["node", "main.js"]
 FROM node:18-alpine AS bun
 WORKDIR /app
 ARG DIST_PATH
-# RUN test -n "$DIST_PATH" || (echo "DIST_PATH not set" && false)
+RUN test -n "$DIST_PATH" || (echo "DIST_PATH not set" && false)
 ENV NODE_ENV=$NODE_ENV
 COPY ./$DIST_PATH .
 RUN npm install
@@ -40,7 +40,7 @@ CMD ["nginx", "-g", "daemon off;"]
 FROM scratch AS scratch
 WORKDIR /
 ARG DIST_PATH
-#RUN test -n "$DIST_PATH" || (echo "DIST_PATH not set" && false)
+RUN test -n "$DIST_PATH" || (echo "DIST_PATH not set" && false)
 ARG ENTRY_NAME=app
 ENV PORT=8080
 EXPOSE ${PORT}
