@@ -97,10 +97,10 @@ jobs:
 #        run: docker buildx ls
 #      - run: docker run --privileged --rm tonistiigi/binfmt --install all
 #      - run: docker buildx create --use
-      - uses: docker/metadata-action@v4
-        id: metadata
-        with:
-          images: ghcr.io/${{ github.repository }}
+#      - uses: docker/metadata-action@v4
+#        id: metadata
+#        with:
+#          images: ghcr.io/${{ github.repository }}
       - name: Set outputs
         id: vars
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
