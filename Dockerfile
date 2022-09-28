@@ -48,7 +48,7 @@ COPY $DIST_PATH ./app
 EXPOSE ${PORT}
 ENTRYPOINT ["/app"]
 
-FROM alpine AS alpine
+FROM --platform=linux/amd64 alpine AS alpine
 WORKDIR /
 ARG DIST_PATH
 RUN test -n "$DIST_PATH" || (echo "DIST_PATH not set" && false)
