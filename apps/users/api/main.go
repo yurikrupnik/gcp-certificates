@@ -24,7 +24,6 @@ type Project struct {
 	Name string             `json:"name" bson:"name,omitempty" validate:"required,min=3,max=36"`
 }
 
-// @securityDefinitions.basic  BasicAuth
 func main() {
 	// Connect to the database
 	if err := go_mongodb.Connect(); err != nil {
