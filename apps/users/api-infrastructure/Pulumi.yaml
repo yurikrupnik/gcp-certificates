@@ -1,0 +1,6 @@
+name: users-api
+runtime: nodejs
+description: Program to manage the infrastructure for users-api
+
+backend:
+  url: gs://gcp-certificates-pulumi-state

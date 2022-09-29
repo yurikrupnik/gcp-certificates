@@ -70,7 +70,9 @@ jobs:
 #      - run: bun nx affected --target=e2e --parallel --max-parallel=2
   docker:
     runs-on: ubuntu-latest
-#    needs: build
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     steps:
       - uses: actions/checkout@v3
         with:
@@ -85,7 +87,7 @@ jobs:
           bun-version: latest
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: bun i
-        #        Fails with go imaes
+        #        Fails with go images
 #      - name: Set up QEMU
 #        uses: docker/setup-qemu-action@v2
 #      - name: Set up Docker Buildx
@@ -102,12 +104,14 @@ jobs:
       - name: Set outputs
         id: vars
         run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v0'
+      - run: gcloud config list
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
-          credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v0'
+          workload_identity_provider: 'projects/50185966089/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          service_account: 'docker-builder@gcp-certificates-363618.iam.gserviceaccount.com'
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
@@ -125,8 +129,8 @@ jobs:
       - name: Build docker images
         run: bun nx affected --target=docker --parallel --max-parallel=1
         env:
-          CGO_ENABLED: 0
-          DOCKER_DEFAULT_PLATFORM: linux/amd64
+#          CGO_ENABLED: 0
+#          DOCKER_DEFAULT_PLATFORM: linux/amd64
           TAG: ${{ steps.vars.outputs.sha_short }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

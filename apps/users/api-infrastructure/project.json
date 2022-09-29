@@ -1,0 +1,39 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/users/api-infrastructure/src",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/users/api-infrastructure/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx vitest --run",
+        "cwd": "apps/users/api-infrastructure"
+      }
+    },
+    "up": {
+      "executor": "@wanews/nx-pulumi:up",
+      "options": {
+        "buildTargets": [
+          {
+            "project": "users-api",
+            "target": "build"
+          }
+        ]
+      }
+    },
+    "destroy": {
+      "executor": "@wanews/nx-pulumi:destroy"
+    },
+    "refresh": {
+      "executor": "@wanews/nx-pulumi:refresh"
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["users-api"]
+}

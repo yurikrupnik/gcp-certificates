@@ -60,6 +60,12 @@
           "docker push europe-west1-docker.pkg.dev/gcp-certificates-363618/images/users-api:$TAG"
         ]
       }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx run users-api-infrastructure:up"]
+      }
     }
   },
   "tags": []
