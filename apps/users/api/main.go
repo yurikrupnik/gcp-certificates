@@ -50,7 +50,7 @@ func main() {
 		return ctx.SendString("friends")
 	})
 	apiGroup1.Get("/sap", func(ctx *fiber.Ctx) error {
-		return ctx.SendString("Yes")
+		return ctx.SendString("Yes!")
 	})
 	//go_models_user.CreateFakeGroup[users.User](apiGroup, "users")
 	users.CreateFakeGroup[Project](apiGroup, "projects")
