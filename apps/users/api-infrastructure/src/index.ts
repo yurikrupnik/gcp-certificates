@@ -1,7 +1,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as gcp from "@pulumi/gcp";
 import * as path from "path";
-
+// import * as pulumiGcpFunction from "@gcp-certificates/pulumi/gcp-function"
 // This is the path to the other project relative to the CWD
 const projectRoot = "../users-api";
 
@@ -15,6 +15,7 @@ new gcp.storage.Bucket("yurikrupni-bucket", {
   project,
   forceDestroy: true,
   labels: {
+    // type: pulumiGcpFunction(),
     type: 'temp',
     team: 'util',
   },

@@ -31,6 +31,7 @@
     "@nx-go/nx-go": "^2.6.0",
     "@nx-tools/nx-docker": "^3.0.4",
     "@nxext/solid": "^14.0.2",
+    "@swc/jest": "0.2.20",
     "@types/jest": "28.1.1",
     "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "^5.36.1",

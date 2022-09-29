@@ -9,6 +9,8 @@
     "go-mongodb": "libs/go/mongodb",
     "go-user-model": "libs/go/user-model",
     "go-utils": "libs/go/utils",
+    "pulumi-gcp-function": "libs/pulumi/gcp-function",
+    "pulumi-gcp-pubsub": "libs/pulumi/gcp-pubsub",
     "users-api": "apps/users/api",
     "users-api-infrastructure": "apps/users/api-infrastructure",
     "users-client": "apps/users/client",
