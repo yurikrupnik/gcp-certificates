@@ -13,7 +13,6 @@ import (
 	go_mongodb "gcp-certificates/libs/go/mongodb"
 	users "gcp-certificates/libs/go/user-model"
 	go_myutils "gcp-certificates/libs/go/utils"
-	//"github.com/yurikrupnik/nx-go-playground/my-lib"
 	"log"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
