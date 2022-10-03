@@ -39,7 +39,7 @@
     "@wanews/nx-vite": "^0.11.0",
     "cypress": "^10.7.0",
     "eslint": "8.24.0",
-    "eslint-config-prettier": "8.1.0",
+    "eslint-config-prettier": "8.5.0",
     "eslint-plugin-cypress": "^2.10.3",
     "eslint-plugin-import": "2.25.2",
     "eslint-plugin-solid": "0.7.3",
