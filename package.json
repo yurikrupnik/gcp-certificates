@@ -38,7 +38,7 @@
     "@wanews/nx-pulumi": "^0.26.0",
     "@wanews/nx-vite": "^0.11.0",
     "cypress": "^10.7.0",
-    "eslint": "8.25.0",
+    "eslint": "8.26.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-cypress": "^2.10.3",
     "eslint-plugin-import": "2.26.0",
