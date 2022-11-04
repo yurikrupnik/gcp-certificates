@@ -12,6 +12,8 @@ spec:
       labels:
         app: nginx
     spec:
+#      nodeSelector:
+#        on-master: "true"
       containers:
       - name: main
         image: nginx

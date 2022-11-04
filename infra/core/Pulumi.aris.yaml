@@ -1,3 +1,4 @@
 config:
   core:key:
     secure: AAABAG0+koOSLHlsORf6ogZPpKv1a/0h1TwKNElYMjTTt3qeEw==
+  gcp:project: gcp-playground-365316
