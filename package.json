@@ -35,7 +35,7 @@
     "@types/node": "18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
-    "@wanews/nx-pulumi": "^0.26.0",
+    "@wanews/nx-pulumi": "^0.27.0",
     "@wanews/nx-vite": "^0.11.0",
     "cypress": "^10.7.0",
     "eslint": "8.38.0",
